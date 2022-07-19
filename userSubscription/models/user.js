@@ -24,6 +24,6 @@ const User = sequelize.define('User', {
     tableName: "users"
 });
 
-sequelize.sync({ alter: true });
+// sequelize.sync({ force : true });
 
 module.exports = User;
