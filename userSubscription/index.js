@@ -18,7 +18,6 @@ const productRouter = require("./controller/product");
 const ordersRouter = require("./controller/order");
 const PORT = 3000;
 
-
 app.listen(PORT, async () => {
     logger.info(`Service started on PORT ${PORT}`);
 });

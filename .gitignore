@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> main
 # Logs
 logs
 *.log
@@ -103,8 +106,7 @@ dist
 
 # TernJS port file
 .tern-port
-=======
 node_modules
 build
 .env
->>>>>>> 35e7b62 (feat: boilerplate)
+
