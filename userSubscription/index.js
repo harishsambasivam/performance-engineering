@@ -1,4 +1,13 @@
 require("dotenv").config();
+
+const tracer = require('dd-trace');
+
+tracer.init({
+    env: "dev",
+    "service": "pop-store",
+    runtimeMetrics: true
+});
+
 const connectPostgres = require("./config/database");
 const connection = connectPostgres;
 const logger = require("./utils/logger");
@@ -8,13 +17,7 @@ const userRouter = require("./controller/user");
 const productRouter = require("./controller/product");
 const ordersRouter = require("./controller/order");
 const PORT = 3000;
-const tracer = require('dd-trace');
 
-tracer.init({
-    env: "dev",
-    "service": "pop-store",
-    runtimeMetrics: true
-});
 
 app.listen(PORT, async () => {
     logger.info(`Service started on PORT ${PORT}`);

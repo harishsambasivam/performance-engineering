@@ -36,5 +36,6 @@ const OrderedProducts = sequelize.define('OrderedProducts', {
 OrderedProducts.belongsTo(Product);
 OrderedProducts.belongsTo(Order);
 
+// sequelize.sync({ force : true });
 
 module.exports = { Order, OrderedProducts };

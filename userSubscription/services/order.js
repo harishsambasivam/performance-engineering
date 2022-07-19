@@ -9,8 +9,8 @@ module.exports.getOrder = async (orderId) => {
     const order = await Order.findOne({ where : { id :  orderId }})
     const orderProductMapping = await OrderedProducts.findOne({ where: { OrderId: orderId }});
     return {
-        ...order.dataValues,
-        ...orderProductMapping.dataValues
+        ...order?.dataValues,
+        ...orderProductMapping?.dataValues
     }
 }
 module.exports.addOrder = async (orderData) => {
