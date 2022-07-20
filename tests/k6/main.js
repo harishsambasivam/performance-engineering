@@ -1,6 +1,7 @@
 const { testType = "smoke" } = __ENV;
 import { signUp } from "./scenarios/signUp";
 import { addProduct } from "./scenarios/addProduct";
+import { orderProduct } from "./scenarios/orderProduct";
 
 const config = {
   smoke: [
@@ -20,8 +21,8 @@ const config = {
   spike: [
     { duration: '10s', target: 100 }, // below normal load
     { duration: '1m', target: 100 },
-    { duration: '10s', target: 1500 }, // spike to 1400 users
-    { duration: '5m', target: 2500 },
+    { duration: '10s', target: __ENV.maxSpike || 1400 }, // spike to 1400 users
+    { duration: '5m', target: __ENV.maxSpike || 1400 },
     { duration: '10s', target: 100 }, // scale down recovery stage
     { duration: '3m', target: 100 }, // after recovery
     { duration: '10s', target: 10 }
@@ -52,11 +53,17 @@ export const options = {
 const BASE_URL = 'http://performance-engineering-poc-alb-838128952.ap-south-1.elb.amazonaws.com';
 
 export default async () => {
-    // await signUp(BASE_URL);
-    try{
-      await addProduct(BASE_URL);
-    } catch(err) {
-      console.log(err.message);
+  try {
+    switch (__ENV.scenario="orderProduct") {
+      case "signUp":
+        await signUp(BASE_URL);
+      case "addProduct":
+        await addProduct(BASE_URL);
+      case "orderProduct":
+        await orderProduct(BASE_URL);
     }
+  } catch (err) {
+    console.log(err.message);
+  }
 };
 
