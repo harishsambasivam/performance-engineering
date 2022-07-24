@@ -1,10 +1,11 @@
 const { testType = "smoke" } = __ENV;
 import { signUp } from "./scenarios/signUp";
 import { addProduct } from "./scenarios/addProduct";
+import { orderProduct } from "./scenarios/orderProduct";
 
 const config = {
   smoke: [
-    { duration: "10s", target: "1" } // minimal load with 1 concurrent user 
+    { duration: "1m", target: "2" } // minimal load with 1 concurrent user 
   ],
   load: [
     { duration: "5m", target: 50 }, // simulate ramp up of traffic from 1 t0 100 users over 5m
@@ -18,12 +19,12 @@ const config = {
     { "duration": "2m", "target": 10 }, // scale down
   ],
   spike: [
-    { duration: '10s', target: 100 }, // below normal load
-    { duration: '1m', target: 100 },
-    { duration: '10s', target: 1500 }, // spike to 1400 users
-    { duration: '5m', target: 2500 },
-    { duration: '10s', target: 100 }, // scale down recovery stage
-    { duration: '3m', target: 100 }, // after recovery
+    { duration: '10s', target: 10 }, // below normal load
+    { duration: '1m', target: 10 },
+    { duration: '10s', target: __ENV.maxSpike || 20 }, // spike to 1400 users
+    { duration: '5m', target: __ENV.maxSpike || 20 },
+    { duration: '10s', target: 10 }, // scale down recovery stage
+    { duration: '3m', target: 10 }, // after recovery
     { duration: '10s', target: 10 }
   ],
   stress: [
@@ -52,11 +53,17 @@ export const options = {
 const BASE_URL = 'http://performance-engineering-poc-alb-838128952.ap-south-1.elb.amazonaws.com';
 
 export default async () => {
-    // await signUp(BASE_URL);
-    try{
-      await addProduct(BASE_URL);
-    } catch(err) {
-      console.log(err.message);
+  try {
+    switch (__ENV.scenario="orderProduct") {
+      case "signUp":
+        await signUp(BASE_URL);
+      case "addProduct":
+        await addProduct(BASE_URL);
+      case "orderProduct":
+        await orderProduct(BASE_URL);
     }
+  } catch (err) {
+    console.log(err.message);
+  }
 };
 
