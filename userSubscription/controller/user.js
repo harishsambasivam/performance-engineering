@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const { getUser, addUser } = require("../services/user");
+const logger = require("../utils/logger");
 const router = Router();
 
 router.get("/:username", async (req, res, next) => {
@@ -11,6 +12,7 @@ router.get("/:username", async (req, res, next) => {
             data: user
         })
     } catch (err) {
+        logger.error(err);
         next(err);
     }
 });
@@ -25,6 +27,7 @@ router.post("/", async (req, res, next) => {
             data: user
         })
     } catch (err) {
+        logger.error(err);
         next(err);
     }
 });

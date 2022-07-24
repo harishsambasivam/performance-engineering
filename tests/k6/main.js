@@ -5,7 +5,7 @@ import { orderProduct } from "./scenarios/orderProduct";
 
 const config = {
   smoke: [
-    { duration: "10s", target: "1" } // minimal load with 1 concurrent user 
+    { duration: "1m", target: "2" } // minimal load with 1 concurrent user 
   ],
   load: [
     { duration: "5m", target: 50 }, // simulate ramp up of traffic from 1 t0 100 users over 5m
@@ -19,12 +19,12 @@ const config = {
     { "duration": "2m", "target": 10 }, // scale down
   ],
   spike: [
-    { duration: '10s', target: 100 }, // below normal load
-    { duration: '1m', target: 100 },
-    { duration: '10s', target: __ENV.maxSpike || 1400 }, // spike to 1400 users
-    { duration: '5m', target: __ENV.maxSpike || 1400 },
-    { duration: '10s', target: 100 }, // scale down recovery stage
-    { duration: '3m', target: 100 }, // after recovery
+    { duration: '10s', target: 10 }, // below normal load
+    { duration: '1m', target: 10 },
+    { duration: '10s', target: __ENV.maxSpike || 20 }, // spike to 1400 users
+    { duration: '5m', target: __ENV.maxSpike || 20 },
+    { duration: '10s', target: 10 }, // scale down recovery stage
+    { duration: '3m', target: 10 }, // after recovery
     { duration: '10s', target: 10 }
   ],
   stress: [

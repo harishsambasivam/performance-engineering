@@ -7,6 +7,7 @@ export const signUp = async (baseUrl) => {
         password: faker.random.alphaNumeric(Math.random() * 10),
         address: faker.address.secondaryAddress()
     }
+
     let params = {
         timeout: '240s'
       };
@@ -15,6 +16,7 @@ export const signUp = async (baseUrl) => {
     headers: { 'Content-Type': 'application/json' },
     timeout: '240s'
    });
+   
    const { data: newUser } = JSON.parse(data.body);
    const { body: user } = http.get(`${baseUrl}/user/${newUser.username}`, params);
 }
