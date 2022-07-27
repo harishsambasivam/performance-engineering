@@ -33,7 +33,6 @@ const Product = sequelize.define('Product', {
 });
 
 
-// sequelize.sync({ force: true });
 
 
 module.exports = Product;
