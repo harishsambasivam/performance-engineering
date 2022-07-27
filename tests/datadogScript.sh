@@ -9,3 +9,6 @@ docker run -d \
     -e DD_DOGSTATSD_NON_LOCAL_TRAFFIC=1 \
     -p 8125:8125/udp \
     datadog/agent:latest
+
+k6 run build/app.bundle.js -e scenario=userWidgets -e iterations=1 -e vus=1 -e loadZone=amazon:us:as
+hburn -e projectId=3595030
